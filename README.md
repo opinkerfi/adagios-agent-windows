@@ -1,8 +1,17 @@
-# nagios-nsclient-install
-Unattended install for NSClient++
+# NSClient++ - Unattended Installation Script for Windows
+Installs NSClient (32/64 bit) in NRPE mode with your favorite settings and plugins.
 
-ProductCode
-{96FD4041-BE85-4046-B9F0-E24D270C203B}
+## Folder and file structure
 
-UpgradeCode
-{0B36E3B7-0042-452D-B376-57E0C07ADDAA}
+## Installation
+
+### Change configuration ini files to suit your environment
+
+1. files/allowed_hosts.ini -> ip address of your Nagios monitoring server
+2. files/nsclient.ini -> main configuration, currently configured for NRPE mode
+
+### Install
+
+Run Unattended_Setup.vbs to begin silent unattended installation. The script will stop NSClient++ service, install the correct package depending on your system architecture (32/64 bit), install your custom plugins and config files and restart the NSClient++ service.
+If you have older msi setup of NSClient++, it will be updated.
+
