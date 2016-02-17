@@ -65,10 +65,6 @@ strCommand = StrCommand & ObjectParameter(i) & " /l* " & chr(34) & TempDir & "se
 'msgbox strCommand
 ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
 
-C:\temp\nagios-nsclient-install>msiexec /i NSCP-0.4.4.15-x64.msi /quiet /noresta
-rt ADDLOCAL="ALL" REMOVE=Documentation,NSCPlugins,NSCAPlugin,SampleScripts,OP5Montoring,WEBPlugins
-
-
 i=2
 ObjectPath(i) = ""
 ObjectSetupName(i) = "xcopy "
@@ -76,7 +72,6 @@ ObjectParameter(i) =  Chr(34) & v_CurrentDir & "files\*.*" & Chr(34) & " " & Chr
 strCommand = "CMD /C ECHO F | " & ObjectSetupName(i) & ObjectParameter(i)     	
 'msgbox strCommand
 ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
-
 
 i=3
 ObjectPath(i) = ""
@@ -86,6 +81,7 @@ strCommand = chr(34) & ObjectPath(i) & ObjectSetupName(i) & chr(34) & ObjectPara
 'msgbox strCommand
 ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
 
+' -----
 
 objEnv.Remove("SEE_MASK_NOZONECHECKS")
 
