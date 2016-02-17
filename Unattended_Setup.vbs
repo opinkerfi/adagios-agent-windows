@@ -40,45 +40,49 @@ v_ProgramCount = 4 ' Number of programs/scripts to run
 dim ObjectPath()
 dim ObjectSetupName()
 dim ObjectParameter()
+dim ObjectIntReturn()
 
+redim ObjectIntReturn(v_ProgramCount)
 redim ObjectPath(v_ProgramCount)
 redim ObjectSetupName(v_ProgramCount)
 redim ObjectParameter(v_ProgramCount)
 
 i=0
-ObjectPath(i) = v_CurrentDir 
-ObjectSetupName(i) = Chr(34) & "%programfiles%\NSClient++\nscp.exe" & Chr(34) & " service --stop"
+ObjectPath(i) = ""
+ObjectSetupName(i) = "%programfiles%\NSClient++\nscp.exe"
+ObjectParameter(i) = " service --stop"
 strCommand = chr(34) & ObjectPath(i) & ObjectSetupName(i) & chr(34) & ObjectParameter(i)
 msgbox strCommand
-objShell.Run (strCommand,0,True)
+ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
 
 i=1
 ObjectPath(i) = v_CurrentDir
-ObjectSetupName(i) = "msiexec /l* nsclient_setup_log.txt /i NSCP-0.4.4.15-" & v_SystemArchitecture & ".msi"
+ObjectSetupName(i) = "NSCP-0.4.4.15-" & v_SystemArchitecture & ".msi"
 ObjectParameter(i) = " /QN /norestart ADDLOCAL=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin MONITORING_TOOL=none"
-strCommand = chr(34) & ObjectPath(i) & ObjectSetupName(i) & chr(34) & ObjectParameter(i)
+strCommand = "Msiexec.exe /i " & chr(34) & ObjectPath(i) & ObjectSetupName(i) & chr(34)
+strCommand = StrCommand & ObjectParameter(i) & " /l* " & chr(34) & TempDir & "setup.log" & chr(34)
 msgbox strCommand
-objShell.Run (strCommand,0,True)
+ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
 
 i=2
-ObjectPath(i) = v_CurrentDir
+ObjectPath(i) = ""
 ObjectSetupName(i) = "xcopy "
 ObjectParameter(i) =  Chr(34) & v_CurrentDir & "files\*.*" & Chr(34) & " " & Chr(34) & "%programfiles%\NSClient++\" & Chr(34) & " /e /y"
-strCommand = chr(34) & ObjectPath(i) & ObjectSetupName(i) & chr(34) & ObjectParameter(i)
+strCommand = "CMD /C ECHO F | " & ObjectSetupName(i) & ObjectParameter(i)     	
 msgbox strCommand
-objShell.Run (strCommand,0,True)
+ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
 
 
 i=3
-ObjectPath(i) = v_CurrentDir 
-ObjectSetupName(i) = Chr(34) & "%programfiles%\NSClient++\nscp.exe" & Chr(34) & " service --start"
+ObjectPath(i) = ""
+ObjectSetupName(i) = "%programfiles%\NSClient++\nscp.exe"
+ObjectParameter(i) = " service --start"
 strCommand = chr(34) & ObjectPath(i) & ObjectSetupName(i) & chr(34) & ObjectParameter(i)
 msgbox strCommand
-objShell.Run (strCommand,0,True)
+ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
 
 
-
-oEnv.Remove("SEE_MASK_NOZONECHECKS")
+objEnv.Remove("SEE_MASK_NOZONECHECKS")
 
 Public Function ErrorTranslation(ErrorCodeReturn)
     If ErrorCodeReturn = 0 Then ErrorTranslation = "Installation Successful."  End If
