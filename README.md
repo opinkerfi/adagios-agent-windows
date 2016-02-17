@@ -1,4 +1,4 @@
-# NSClient++ - Unattended Installation Script for Windows
+# NSClient++ Unattended Installation for Windows
 Installs NSClient (32/64 bit) in NRPE mode with your favorite settings and plugins.
 
 ## Folder and file structure
@@ -10,10 +10,10 @@ Installs NSClient (32/64 bit) in NRPE mode with your favorite settings and plugi
 * Change the file `files/allowed_hosts.ini`
 ```
 [/settings/default]
-allowed hosts = 127.0.0.1,`{ip_address_of_your_nagios_server}`
+allowed hosts = 127.0.0.1,{ip_address_of_your_nagios_server}
 ```
 
-* Make your changes in `files/nsclient.ini` . This configuration is currently configured for NRPE mode
+* `Optional: Make your changes in `files/nsclient.ini` . This configuration is currently configured for NRPE mode
 
 ### Install NSClient++
 
