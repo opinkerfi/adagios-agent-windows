@@ -58,11 +58,16 @@ ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
 i=1
 ObjectPath(i) = v_CurrentDir
 ObjectSetupName(i) = "NSCP-0.4.4.15-" & v_SystemArchitecture & ".msi"
-ObjectParameter(i) = " /QN /norestart ADDLOCAL=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin MONITORING_TOOL=none"
+'ObjectParameter(i) = " /QN /norestart ADDLOCAL=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin MONITORING_TOOL=GENERIC INSTALL_SAMPLE_CONFIG=0 ALLOWED_HOSTS=127.0.0.1,::1 NRPEMODE=LEGACY GENERATE_SAMPLE_CONFIG=0 ALLOW_CONFIGURATION=1"
+ObjectParameter(i) = " /QN /norestart ADDLOCAL=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,SampleScripts,OP5Montoring,WEBPlugins"
 strCommand = "Msiexec.exe /i " & chr(34) & ObjectPath(i) & ObjectSetupName(i) & chr(34)
 strCommand = StrCommand & ObjectParameter(i) & " /l* " & chr(34) & TempDir & "setup.log" & chr(34)
 msgbox strCommand
 ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
+
+C:\temp\nagios-nsclient-install>msiexec /i NSCP-0.4.4.15-x64.msi /quiet /noresta
+rt ADDLOCAL="ALL" REMOVE=Documentation,NSCPlugins,NSCAPlugin,SampleScripts,OP5Montoring,WEBPlugins
+
 
 i=2
 ObjectPath(i) = ""
