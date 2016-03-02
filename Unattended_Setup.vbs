@@ -35,7 +35,7 @@ End if
 
 'Uppsetningar stillingar
 v_ProgramName = "Nagios Client 0.4.4.15"
-v_ProgramCount = 4 ' Number of programs/scripts to run
+v_ProgramCount = 5 ' Number of programs/scripts to run
 
 dim ObjectPath()
 dim ObjectSetupName()
@@ -76,12 +76,20 @@ ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
 i=3
 ObjectPath(i) = ""
 ObjectSetupName(i) = "%programfiles%\NSClient++\nscp.exe"
+ObjectParameter(i) = " service --stop"
+strCommand = chr(34) & ObjectPath(i) & ObjectSetupName(i) & chr(34) & ObjectParameter(i)
+'msgbox strCommand
+ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
+
+i=4
+ObjectPath(i) = ""
+ObjectSetupName(i) = "%programfiles%\NSClient++\nscp.exe"
 ObjectParameter(i) = " service --start"
 strCommand = chr(34) & ObjectPath(i) & ObjectSetupName(i) & chr(34) & ObjectParameter(i)
 'msgbox strCommand
 ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
 
-' -----
+'------'
 
 objEnv.Remove("SEE_MASK_NOZONECHECKS")
 
