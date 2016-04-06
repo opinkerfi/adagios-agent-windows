@@ -58,7 +58,7 @@ ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
 i=1
 ObjectPath(i) = ""
 ObjectSetupName(i) = "%programfiles%\NSClient++\nscp.exe"
-ObjectParameter(i) = " service --uninstall"
+ObjectParameter(i) = " service --stop"
 strCommand = chr(34) & ObjectPath(i) & ObjectSetupName(i) & chr(34) & ObjectParameter(i)
 'msgbox strCommand
 ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
