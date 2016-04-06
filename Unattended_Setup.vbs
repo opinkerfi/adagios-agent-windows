@@ -35,7 +35,7 @@ End if
 
 'Uppsetningar stillingar
 v_ProgramName = "Nagios Client 0.4.4.15"
-v_ProgramCount = 5 ' Number of programs/scripts to run
+v_ProgramCount = 7 ' Number of programs/scripts to run
 
 dim ObjectPath()
 dim ObjectSetupName()
@@ -56,6 +56,14 @@ strCommand = chr(34) & ObjectPath(i) & ObjectSetupName(i) & chr(34) & ObjectPara
 ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
 
 i=1
+ObjectPath(i) = ""
+ObjectSetupName(i) = "%programfiles%\NSClient++\nscp.exe"
+ObjectParameter(i) = " service --uninstall"
+strCommand = chr(34) & ObjectPath(i) & ObjectSetupName(i) & chr(34) & ObjectParameter(i)
+'msgbox strCommand
+ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
+
+i=2
 ObjectPath(i) = v_CurrentDir
 ObjectSetupName(i) = "NSCP-0.4.4.15-" & v_SystemArchitecture & ".msi"
 'ObjectParameter(i) = " /QN /norestart ADDLOCAL=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin MONITORING_TOOL=GENERIC INSTALL_SAMPLE_CONFIG=0 ALLOWED_HOSTS=127.0.0.1,::1 NRPEMODE=LEGACY GENERATE_SAMPLE_CONFIG=0 ALLOW_CONFIGURATION=1"
@@ -65,7 +73,7 @@ strCommand = StrCommand & ObjectParameter(i) & " /l* " & chr(34) & TempDir & "se
 'msgbox strCommand
 ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
 
-i=2
+i=3
 ObjectPath(i) = ""
 ObjectSetupName(i) = "xcopy "
 ObjectParameter(i) =  Chr(34) & v_CurrentDir & "files\*.*" & Chr(34) & " " & Chr(34) & "%programfiles%\NSClient++\" & Chr(34) & " /e /y"
@@ -73,7 +81,7 @@ strCommand = "CMD /C ECHO F | " & ObjectSetupName(i) & ObjectParameter(i)
 'msgbox strCommand
 ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
 
-i=3
+i=4
 ObjectPath(i) = ""
 ObjectSetupName(i) = "%programfiles%\NSClient++\nscp.exe"
 ObjectParameter(i) = " service --stop"
@@ -81,7 +89,15 @@ strCommand = chr(34) & ObjectPath(i) & ObjectSetupName(i) & chr(34) & ObjectPara
 'msgbox strCommand
 ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
 
-i=4
+i=5
+ObjectPath(i) = ""
+ObjectSetupName(i) = "%programfiles%\NSClient++\nscp.exe"
+ObjectParameter(i) = " service --stop"
+strCommand = chr(34) & ObjectPath(i) & ObjectSetupName(i) & chr(34) & ObjectParameter(i)
+'msgbox strCommand
+ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
+
+i=6
 ObjectPath(i) = ""
 ObjectSetupName(i) = "%programfiles%\NSClient++\nscp.exe"
 ObjectParameter(i) = " service --start"
