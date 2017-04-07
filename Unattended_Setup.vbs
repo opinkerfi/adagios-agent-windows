@@ -35,7 +35,7 @@ End if
 
 'Uppsetningar stillingar
 v_ProgramName = "Nagios Client 0.5.0.62"
-v_ProgramCount = 7 ' Number of programs/scripts to run
+v_ProgramCount = 8 ' Number of programs/scripts to run
 
 dim ObjectPath()
 dim ObjectSetupName()
@@ -105,6 +105,15 @@ strCommand = chr(34) & ObjectPath(i) & ObjectSetupName(i) & chr(34) & ObjectPara
 'msgbox strCommand
 ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
 
+' Remove old nscp service
+i=7
+ObjectPath(i) = ""
+ObjectSetupName(i) = "%programfiles%\NSClient++\nscp.exe"
+ObjectParameter(i) = " service --uninstall --name NSClientpp"
+strCommand = chr(34) & ObjectPath(i) & ObjectSetupName(i) & chr(34) & ObjectParameter(i)
+'msgbox strCommand
+ObjectIntReturn(i) = objShell.Run (strCommand,0,True)
+					
 '------'
 
 objEnv.Remove("SEE_MASK_NOZONECHECKS")
