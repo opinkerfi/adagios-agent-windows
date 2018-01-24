@@ -63,23 +63,23 @@ Try {
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
 	[string]$appScriptVersion = '1.0.0'
-	[string]$appScriptDate = '21/12/2017'
+	[string]$appScriptDate = '24/01/2018'
 	[string]$appScriptAuthor = 'Gardar Thorsteinsson<gardart@gmail.com>'
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
 	[string]$installName = 'NSClient++ Deployment'
 	[string]$installTitle = ''
 	## Variables: System architecture detection
-	if([IntPtr]::Size -eq 8)
-	{
+	#If([IntPtr]::Size -eq 8)
+	#{
 		#64bit
-		[string]$appArch = "x64"
-	}
-	else
-	{
+	#	[string]$appArch = 'x64'
+	#}
+	#Else
+	#{
 		#32bit
-		[string]$appArch = "Win32"
-	}
+	#	[string]$appArch = 'Win32'
+	#}
 		
 	##* Do not modify section below
 	#region DoNotModify
@@ -123,13 +123,17 @@ Try {
 		[string]$installPhase = 'Pre-Installation'
 		
 		## Show Welcome Message, close Internet Explorer if required, allow up to 3 deferrals, verify there is enough disk space to complete the install, and persist the prompt
-		Show-InstallationWelcome -CloseApps 'iexplore' -AllowDefer -DeferTimes 3 -CheckDiskSpace -PersistPrompt
+		Show-InstallationWelcome -CloseApps 'nscp' -AllowDefer -DeferTimes 3 -CheckDiskSpace -PersistPrompt
 		
 		## Show Progress Message (with the default message)
 		Show-InstallationProgress
+		#Show-InstallationProgress -StatusMessage "Uppsetning á $appVendor $appname $appVersion. Vinsamlegast bíðið."
 		
 		## <Perform Pre-Installation tasks here>
 		
+		# Uninstall older versions of NSClient
+		#Remove-MSIApplications -Name 'NSCLIENT'
+		Execute-Process -Path '%programfiles%\NSClient++\nscp.exe' -Parameters 'service --uninstall --name NSClientpp' -IgnoreExitCodes '1,2' -WindowStyle 'Hidden'
 		
 		##*===============================================
 		##* INSTALLATION 
@@ -144,6 +148,12 @@ Try {
 		
 		## <Perform Installation tasks here>
 		
+		If ($Is64Bit) {
+			Execute-MSI -Action Install -Path 'NSCP-0.5.2.33-x64.msi' -Parameters '/quiet /norestart ADDLOCAL=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,SampleScripts,OP5Montoring,WEBPlugins'
+		}
+		Else {
+			Execute-MSI -Action Install -Path 'NSCP-0.5.2.33-Win32.msi' -Parameters '/quiet /norestart ADDLOCAL=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,SampleScripts,OP5Montoring,WEBPlugins'
+		}
 		
 		##*===============================================
 		##* POST-INSTALLATION
@@ -187,6 +197,12 @@ Try {
 		# Uninstall 0.3.x
 		# Uninstall 0.4.x
 		# Uninstall 0.5.x
+
+		# Show Progress Message (with a message to indicate the application is being uninstalled)
+		Show-InstallationProgress -StatusMessage 'Uninstalling Application $installTitle. Please Wait...'
+		# Remove this version of Adobe Reader
+		#Execute-MSI -Action Uninstall -Path '{AC76BA86-7AD7-1033-7B44-AB0000000001}'
+
 		
 		##*===============================================
 		##* POST-UNINSTALLATION
