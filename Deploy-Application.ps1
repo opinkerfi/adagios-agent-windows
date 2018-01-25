@@ -122,6 +122,8 @@ Try {
 		##*===============================================
 		[string]$installPhase = 'Pre-Installation'
 		
+        ## Stop NSClient++ service (nscp) before installing
+        Stop-ServiceAndDependencies -Name 'nscp'
 		## Show Welcome Message, close Internet Explorer if required, allow up to 3 deferrals, verify there is enough disk space to complete the install, and persist the prompt
 		Show-InstallationWelcome -CloseApps 'nscp' -AllowDefer -DeferTimes 3 -CheckDiskSpace -PersistPrompt
 		
@@ -131,9 +133,14 @@ Try {
 		
 		## <Perform Pre-Installation tasks here>
 		
-		# Uninstall older versions of NSClient
-		#Remove-MSIApplications -Name 'NSCLIENT'
-		Execute-Process -Path '%programfiles%\NSClient++\nscp.exe' -Parameters 'service --uninstall --name NSClientpp' -IgnoreExitCodes '1,2' -WindowStyle 'Hidden'
+		## Uninstall older versions of NSClient++ (version 0.3.x) by uninstalling the service
+		Execute-Process -Path "$envProgramFiles\NSClient++\nscp.exe" -Parameters 'service --uninstall --name NSClientpp' -WindowStyle 'Hidden' -ContinueOnError $true
+        ## Remove all MSI versions of NSClient++
+        Remove-MSIApplications -Name 'NSClient++ (x64)'
+        ## Remove 0.5.2033
+        Execute-MSI -Action Uninstall -Path '{B5C2D99D-F84E-4BDB-89CE-702A4E57DE95}'
+        ## Remove 0.4.4.23
+        Execute-MSI -Action Uninstall -Path '{5160016F-E401-432C-9423-A58E18452D52}'
 		
 		##*===============================================
 		##* INSTALLATION 
@@ -149,10 +156,10 @@ Try {
 		## <Perform Installation tasks here>
 		
 		If ($Is64Bit) {
-			Execute-MSI -Action Install -Path 'NSCP-0.5.2.33-x64.msi' -Parameters '/quiet /norestart ADDLOCAL=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,SampleScripts,OP5Montoring,WEBPlugins'
+			Execute-MSI -Action Install -Path 'NSCP-0.5.2.33-x64.msi' -Parameters '/quiet /norestart ADDDEFAULT=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,WEBPlugins'
 		}
 		Else {
-			Execute-MSI -Action Install -Path 'NSCP-0.5.2.33-Win32.msi' -Parameters '/quiet /norestart ADDLOCAL=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,SampleScripts,OP5Montoring,WEBPlugins'
+			Execute-MSI -Action Install -Path 'NSCP-0.5.2.33-Win32.msi' -Parameters '/quiet /norestart ADDDEFAULT=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,WEBPlugins'
 		}
 		
 		##*===============================================
@@ -163,7 +170,7 @@ Try {
 		## <Perform Post-Installation tasks here>
 		
 		## Display a message at the end of the install
-		If (-not $useDefaultMsi) { Show-InstallationPrompt -Message 'You can customize text to appear at the end of an install or remove it completely for unattended installations.' -ButtonRightText 'OK' -Icon Information -NoWait }
+		If (-not $useDefaultMsi) { Show-InstallationPrompt -Message 'Installation completed successfully. Remember to add the ip address of your Nagios server to the "allowed hosts" variable located in the file $envProgramFiles\NSClient++\allowed_hosts.ini. At last, restart the NSClient++ service.' -ButtonRightText 'OK' -Icon Information -NoWait }
 	}
 	ElseIf ($deploymentType -ieq 'Uninstall')
 	{
