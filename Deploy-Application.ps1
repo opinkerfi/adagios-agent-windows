@@ -58,7 +58,7 @@ Try {
 	## Variables: Application
 	[string]$appVendor = 'MySolutions NORDIC'
 	[string]$appName = 'NSCP'
-	[string]$appVersion = '0.5.1.44'
+	[string]$appVersion = '0.5.2.33'
 	[string]$appArch = ''
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
@@ -133,8 +133,8 @@ Try {
 		
 		## <Perform Pre-Installation tasks here>
 		
-		## Uninstall older versions of NSClient++ (version 0.3.x) by uninstalling the service
-		Execute-Process -Path "$envProgramFiles\NSClient++\nscp.exe" -Parameters 'service --uninstall --name NSClientpp' -WindowStyle 'Hidden' -ContinueOnError $true
+		## Uninstall older versions of NSClient++ (version 0.3.x) by uninstalling the services
+		Test-ServiceExists -Name 'NSClientpp' -PassThru | Where-Object {$_ } | ForEach-Object {$_.Delete() }
         ## Remove all MSI versions of NSClient++
         Remove-MSIApplications -Name 'NSClient++ (x64)'
         ## Remove 0.5.2033
@@ -168,6 +168,10 @@ Try {
 		[string]$installPhase = 'Post-Installation'
 		
 		## <Perform Post-Installation tasks here>
+		Stop-ServiceAndDependencies -Name 'nscp'
+        Copy-File -Path "$dirSupportFiles\*.*" -Destination "$envProgramFiles\NSClient++\"
+        Copy-File -Path "$dirSupportFiles\Scripts" -Destination "$envProgramFiles\NSClient++" -Recurse
+        Start-ServiceAndDependencies -Name 'nscp'
 		
 		## Display a message at the end of the install
 		If (-not $useDefaultMsi) { Show-InstallationPrompt -Message 'Installation completed successfully. Remember to add the ip address of your Nagios server to the "allowed hosts" variable located in the file $envProgramFiles\NSClient++\allowed_hosts.ini. At last, restart the NSClient++ service.' -ButtonRightText 'OK' -Icon Information -NoWait }
