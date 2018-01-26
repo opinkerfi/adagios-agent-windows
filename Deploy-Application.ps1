@@ -122,10 +122,8 @@ Try {
 		##*===============================================
 		[string]$installPhase = 'Pre-Installation'
 		
-        ## Stop NSClient++ service (nscp) before installing
-        Stop-ServiceAndDependencies -Name 'nscp'
 		## Show Welcome Message, close Internet Explorer if required, allow up to 3 deferrals, verify there is enough disk space to complete the install, and persist the prompt
-		Show-InstallationWelcome -CloseApps 'nscp' -AllowDefer -DeferTimes 3 -CheckDiskSpace -PersistPrompt
+		Show-InstallationWelcome -CloseApps 'nscp' -CheckDiskSpace -Silent
 		
 		## Show Progress Message (with the default message)
 		Show-InstallationProgress
@@ -134,6 +132,8 @@ Try {
 		## <Perform Pre-Installation tasks here>
 		
 		## Uninstall older versions of NSClient++ (version 0.3.x) by uninstalling the services
+		Stop-ServiceAndDependencies -Name 'nscp'
+		Stop-ServiceAndDependencies -Name 'NSClientpp'
 		Test-ServiceExists -Name 'NSClientpp' -PassThru | Where-Object {$_ } | ForEach-Object {$_.Delete() }
         ## Remove all MSI versions of NSClient++
         Remove-MSIApplications -Name 'NSClient++ (x64)'
@@ -156,10 +156,10 @@ Try {
 		## <Perform Installation tasks here>
 		
 		If ($Is64Bit) {
-			Execute-MSI -Action Install -Path 'NSCP-0.5.2.33-x64.msi' -Parameters '/quiet /norestart ADDDEFAULT=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,WEBPlugins'
+			Execute-MSI -Action Install -Path 'NSCP-0.5.2.33-x64.msi' -Parameters '/quiet /norestart ADDLOCAL=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,SampleScripts,OP5Montoring,WEBPlugins'
 		}
 		Else {
-			Execute-MSI -Action Install -Path 'NSCP-0.5.2.33-Win32.msi' -Parameters '/quiet /norestart ADDDEFAULT=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,WEBPlugins'
+			Execute-MSI -Action Install -Path 'NSCP-0.5.2.33-Win32.msi' -Parameters '/quiet /norestart ADDLOCAL=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,SampleScripts,OP5Montoring,WEBPlugins'
 		}
 		
 		##*===============================================
