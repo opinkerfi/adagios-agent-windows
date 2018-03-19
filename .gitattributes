@@ -1,0 +1,20 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+# Handle line endings automatically for files detected as text
+# and leave all files detected as binary untouched.
+* text=auto
+
+# Force the following filetypes to have windows eols
+*.* text eol=crlf
+
+# Declare files that will always have CRLF line endings on checkout.
+*.ini text eol=crlf
+*.bat text eol=crlf
+*.vbs text eol=crlf
+*.ps1 text eol=crlf
+*.txt text eol=crlf
+*.pl text eol=crlf
+*.log text eol=crlf
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+# *.c text
