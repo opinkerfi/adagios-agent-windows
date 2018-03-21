@@ -1,3 +1,0 @@
-[submodule "files/scripts/Check-Hyper-V-Cluster-Shared-Volume"]
-	path = files/scripts/Check-Hyper-V-Cluster-Shared-Volume
-	url = https://github.com/cbirkenbeul/Check-Hyper-V-Cluster-Shared-Volume
