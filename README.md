@@ -1,5 +1,5 @@
 # NSClient++ Unattended Installation for Windows
-Installs NSClient (32/64 bit) in NRPE mode with your favorite settings and plugins.
+Installs NSClient (32/64 bit) in NRPE mode. Config is based on OKconfig for Adagios setups.
 
 ## Installation
 
@@ -23,9 +23,10 @@ Run Unattended_Setup.vbs to begin silent unattended installation.
 The installation script will do the following:
 
 * Stop NSClient++ service
+* Uninstalls older versions of NSClient++
 * Install the correct package depending on your system architecture (32/64 bit)
 * Install Firewall Rules for NSClient++
-* Install your custom plugins and config files
+* Install your custom plugins and config files (including OKconfig)
 * Start the NSClient++ service
 
 If you have older msi setup of NSClient++, it will be updated.
