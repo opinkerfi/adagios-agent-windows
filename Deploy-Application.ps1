@@ -58,12 +58,12 @@ Try {
 	## Variables: Application
 	[string]$appVendor = 'MySolutions NORDIC'
 	[string]$appName = 'NSCP'
-	[string]$appVersion = '0.5.1.44'
+	[string]$appVersion = '0.5.2.35'
 	[string]$appArch = ''
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
-	[string]$appScriptVersion = '1.0.0'
-	[string]$appScriptDate = '24/01/2018'
+	[string]$appScriptVersion = '1.0.1'
+	[string]$appScriptDate = '21/03/2018'
 	[string]$appScriptAuthor = 'Gardar Thorsteinsson<gardart@gmail.com>'
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
@@ -161,10 +161,10 @@ Try {
 		## <Perform Installation tasks here>
 		
 		If ($Is64Bit) {
-			Execute-MSI -Action Install -Path 'NSCP-0.5.2.33-x64.msi' -Parameters '/quiet /norestart ADDLOCAL=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,WEBPlugins,OP5Montoring'
+			Execute-MSI -Action Install -Path 'NSCP-0.5.2.35-x64.msi' -Parameters '/quiet /norestart ADDLOCAL=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,WEBPlugins,OP5Montoring'
 		}
 		Else {
-			Execute-MSI -Action Install -Path 'NSCP-0.5.2.33-Win32.msi' -Parameters '/quiet /norestart ADDDEFAULT=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,WEBPlugins'
+			Execute-MSI -Action Install -Path 'NSCP-0.5.2.35-Win32.msi' -Parameters '/quiet /norestart ADDDEFAULT=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,WEBPlugins'
 		}
 		
 		##*===============================================
