@@ -5,12 +5,11 @@
 
 # Declare files that will always have CRLF line endings on checkout.
 *.ini text eol=crlf
-#*.bat text eol=crlf
-#*.vbs text eol=crlf
-#*.ps1 text eol=crlf
+*.vbs text eol=crlf
+*.ps1 text eol=crlf
 *.txt text eol=crlf
-#*.pl text eol=crlf
-#*.log text eol=crlf
+*.pl text eol=crlf
+*.log text eol=crlf
 
 # Explicitly declare text files you want to always be normalized and converted
 # to native line endings on checkout.
