@@ -1,5 +1,7 @@
-# NSClient++ Unattended Installation for Windows
-Installs NSClient (32/64 bit) in NRPE mode. Config is based on OKconfig for Adagios setups.
+# Adagios | OKconfig agent - Unattended Installation for Windows
+Installs NSClient (32/64 bit) in NRPE mode with your favorite settings and plugins.
+This setup works with Adagios setups. Adagios is a web based Nagios configuration interface.
+Project website is at http://adagios.org
 
 ## Installation
 
@@ -8,26 +10,23 @@ https://github.com/gardart/nagios-nsclient-install/archive/master.zip
 
 ### Change configuration settings
 
-* Change the file `files/allowed_hosts.ini`
+* Change the file `Files/allowed_hosts.ini`
 ```
 [/settings/default]
 allowed hosts = 127.0.0.1,{ip_address_of_your_nagios_server}
 ```
 
-* `Optional:` Make your changes in `files/nsclient.ini` . This configuration is currently configured for NRPE mode
+* `Optional:` Make your changes in `Files/nsclient.ini` . This configuration is currently configured for NRPE mode
 
 ### Install NSClient++
 
-Run Unattended_Setup.vbs to begin silent unattended installation. 
+Run Deploy-Application.exe to begin silent unattended installation. 
 
 The installation script will do the following:
 
 * Stop NSClient++ service
-* Uninstalls older versions of NSClient++
+* Uninstall/Update older NSClients
 * Install the correct package depending on your system architecture (32/64 bit)
 * Install Firewall Rules for NSClient++
-* Install your custom plugins and config files (including OKconfig)
+* Install your custom plugins and config files
 * Start the NSClient++ service
-
-If you have older msi setup of NSClient++, it will be updated.
-
