@@ -4,6 +4,7 @@
 #
 # AUTHOR:	Christophe Robert - christophe °dot° robert °at° cocoche °dot° fr
 #			Daniel Beardsmore [DGB] - daniel °at° trustnetworks °dot° co °dot° uk
+#			Gardar Thorsteinsson - gardar at opinkerfi.is
 #
 # DESC:		Check HPSSACLI/HPACUCLI results for RAID status on Windows - hpssacli/hpacucli command line tool
 #
@@ -35,6 +36,7 @@
 #			* Drive predictive failure now raised to warning level (untested)
 #			* Better compatibility with HPSSACLI (controller warnings were not being reported)
 #			@ DGB 2016-09-19
+#	        1.8 - Path updated for ssacli binary
 #
 ####
 
@@ -44,6 +46,7 @@ param (
 
 Function Get-Storage-Executable-Path () {
     $programPaths = (
+	'C:\Program Files\Smart Storage Administrator\ssacli\bin\ssacli.exe',
     	'C:\Program Files\HP\HPSSACLI\bin\hpssacli.exe',
         'C:\Program Files\HP\HPACUCLI\Bin\hpacucli.exe',
         'C:\Program Files\Compaq\HPACUCLI\Bin\hpacucli.exe',
