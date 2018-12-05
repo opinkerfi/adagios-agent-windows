@@ -6,7 +6,7 @@ Project website is at http://adagios.org
 ## Installation
 
 ### Download this repo as zip file to your windows server
-https://github.com/gardart/adagios-agent-windows/archive/master.zip
+https://github.com/gardart/nagios-nsclient-install/archive/master.zip
 
 ### Install with Powershell
 ```
@@ -22,6 +22,17 @@ Expand-Archive -Path "$env:TEMP\master.zip" -DestinationPath "$env:TEMP" -Force 
 ```
 [/settings/default]
 allowed hosts = 127.0.0.1,{ip_address_of_your_nagios_server}
+```
+
+To update allowed hosts from the command line, run
+
+```
+nscp.exe settings --path /settings/default --key "allowed hosts" --set "127.0.0.1,::1,monitoring-server
+nscp.exe settings --list --path /settings/default --key "allowed hosts"
+
+# Restart NSClient++
+nscp.exe service --stop
+nscp.exe service --start
 ```
 
 * `Optional:` Make your changes in `Files/nsclient.ini` . This configuration is currently configured for NRPE mode
