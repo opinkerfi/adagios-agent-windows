@@ -175,7 +175,8 @@ Try {
 		## <Perform Post-Installation tasks here>
         Stop-ServiceAndDependencies -Name 'nscp'
         Copy-File -Path "$dirSupportFiles\*.*" -Destination "$envProgramFiles\NSClient++\"
-        Copy-File -Path "$dirSupportFiles\Scripts" -Destination "$envProgramFiles\NSClient++" -Recurse
+		Copy-File -Path "$dirSupportFiles\Scripts" -Destination "$envProgramFiles\NSClient++" -Recurse
+		Set-RegistryKey -Key 'HKEY_LOCAL_MACHINE\SOFTWARE\OpinKerfi\OKconfig' -Name 'CurrentVersion' -Value $appScriptVersion -Type String -ContinueOnError:$True
         Start-ServiceAndDependencies -Name 'nscp'
         #Stop-ServiceAndDependencies -Name 'nscp'
         #Test-ServiceExists -Name 'nscp' -PassThru | Where-Object {$_ } | ForEach-Object {$_.Delete() }
