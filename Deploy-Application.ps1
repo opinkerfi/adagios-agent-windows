@@ -62,8 +62,8 @@ Try {
 	[string]$appArch = ''
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
-	[string]$appScriptVersion = '1.0.1'
-	[string]$appScriptDate = '21/03/2018'
+	[string]$appScriptVersion = '1.0.2'
+	[string]$appScriptDate = '23/01/2019'
 	[string]$appScriptAuthor = 'Gardar Thorsteinsson<gardart@gmail.com>'
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
@@ -176,10 +176,10 @@ Try {
         Stop-ServiceAndDependencies -Name 'nscp'
         Copy-File -Path "$dirSupportFiles\*.*" -Destination "$envProgramFiles\NSClient++\"
 		Copy-File -Path "$dirSupportFiles\Scripts" -Destination "$envProgramFiles\NSClient++" -Recurse
-		Set-RegistryKey -Key 'HKEY_LOCAL_MACHINE\SOFTWARE\OpinKerfi\OKconfig' -Name 'CurrentVersion' -Value $appScriptVersion -Type String -ContinueOnError:$True
+
+		# Update registry key for Adagios agent version (OKconfig version)
+		Set-RegistryKey -Key 'HKEY_LOCAL_MACHINE\SOFTWARE\OpinKerfi\Adagios' -Name 'CurrentVersion' -Value $appScriptVersion -Type String -ContinueOnError:$True
         Start-ServiceAndDependencies -Name 'nscp'
-        #Stop-ServiceAndDependencies -Name 'nscp'
-        #Test-ServiceExists -Name 'nscp' -PassThru | Where-Object {$_ } | ForEach-Object {$_.Delete() }
 		
 		## Display a message at the end of the install
 		If (-not $useDefaultMsi) { Show-InstallationPrompt -Message 'Installation completed successfully. Remember to add the ip address of your Nagios server to the "allowed hosts" variable located in the file $envProgramFiles\NSClient++\allowed_hosts.ini. At last, restart the NSClient++ service.' -ButtonRightText 'OK' -Icon Information -NoWait }
