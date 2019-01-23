@@ -141,6 +141,14 @@ Try {
         #Test-ServiceExists -Name 'nscp' -PassThru | Where-Object {$_ } | ForEach-Object {$_.Delete() }
         
 
+		# If((Get-RegistryKey "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{33F14A86-E280-49DD-B3A2-FCD4EEF47F2F}" -Value DisplayVersion) -lt "0.5.2035"){
+		# 	Write-Log -Source $deployAppScriptFriendlyName -Message "Current version is too old, removing old MSI versions..."
+		# 	Remove-MSIApplications -Name 'NSClient++ (x64)'
+		# }
+		# else{
+		# 	Write-Log -Source $deployAppScriptFriendlyName -Message "This version is the current one, will not remove..."  
+		# }
+
         ## Remove all MSI versions of NSClient++
         Remove-MSIApplications -Name 'NSClient++ (x64)'
         ## Remove 0.5.2033
@@ -162,6 +170,13 @@ Try {
 		## <Perform Installation tasks here>
 		
 		If ($Is64Bit) {
+			# If((Get-RegistryKey "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{33F14A86-E280-49DD-B3A2-FCD4EEF47F2F}" -Value DisplayVersion) -lt "0.5.2035"){
+            #     Write-Log -Source $deployAppScriptFriendlyName -Message "Current version is too old, installing"
+            #     Execute-MSI -Action Install -Path 'NSCP-0.5.2.35-x64.msi' -Parameters '/quiet /norestart ADDLOCAL=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,WEBPlugins,OP5Montoring'
+            # }
+            # else{
+            #     Write-Log -Source $deployAppScriptFriendlyName -Message "No need to update..."  
+            # }
 			Execute-MSI -Action Install -Path 'NSCP-0.5.2.35-x64.msi' -Parameters '/quiet /norestart ADDLOCAL=ALL REMOVE=Documentation,NSCPlugins,NSCAPlugin,WEBPlugins,OP5Montoring'
 		}
 		Else {
