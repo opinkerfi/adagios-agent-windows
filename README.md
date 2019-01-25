@@ -6,12 +6,12 @@ Project website is at http://adagios.org
 ## Installation
 
 ### Download this repo as zip file to your windows server
-https://github.com/gardart/nagios-nsclient-install/archive/master.zip
+https://github.com/opinkerfi/adagios-agent-windows/archive/master.zip
 
 ### Install with Powershell
 ```
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-Invoke-WebRequest -Uri "https://github.com/gardart/adagios-agent-windows/archive/master.zip" -outfile "$env:TEMP\master.zip" -Verbose
+Invoke-WebRequest -Uri "https://github.com/opinkerfi/adagios-agent-windows/archive/master.zip" -outfile "$env:TEMP\master.zip" -Verbose
 Expand-Archive -Path "$env:TEMP\master.zip" -DestinationPath "$env:TEMP" -Force -Verbose
 & "$env:TEMP\adagios-agent-windows-master\Deploy-Application.exe"
 ```
