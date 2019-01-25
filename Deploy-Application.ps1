@@ -62,14 +62,14 @@ Try {
 	[string]$appArch = ''
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
-	[string]$appScriptVersion = '1.0.3'
+	[string]$appScriptVersion = '1.0.5'
 	[string]$appScriptDate = '23/01/2019'
 	[string]$appScriptAuthor = 'Gardar Thorsteinsson<gardart@gmail.com>'
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
 	[string]$installName = 'NSClient++ Deployment'
 	[string]$installTitle = ''
-	[version]$AdagiosRelease = [version]'1.0.3'
+	[version]$AdagiosRelease = [version]'1.0.5'
 	## Variables: System architecture detection
 	#If([IntPtr]::Size -eq 8)
 	#{
