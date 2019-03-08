@@ -3,12 +3,9 @@ Installs NSClient (32/64 bit) in NRPE mode with your favorite settings and plugi
 This setup works with Adagios setups. Adagios is a web based Nagios configuration interface.
 Project website is at http://adagios.org
 
-## Installation
+# Installation
 
-### Download this repo as zip file to your windows server
-https://github.com/opinkerfi/adagios-agent-windows/archive/master.zip
-
-### Install with Powershell
+## Install with Powershell
 ```
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-WebRequest -Uri "https://github.com/opinkerfi/adagios-agent-windows/archive/master.zip" -outfile "$env:TEMP\master.zip" -Verbose
@@ -37,7 +34,10 @@ nscp.exe service --start
 
 * `Optional:` Make your changes in `Files/nsclient.ini` . This configuration is currently configured for NRPE mode
 
-### Install NSClient++
+## Manual Installation
+
+Download this repo as zip file to your windows server
+https://github.com/opinkerfi/adagios-agent-windows/archive/master.zip
 
 Run Deploy-Application.exe to begin silent unattended installation. 
 
