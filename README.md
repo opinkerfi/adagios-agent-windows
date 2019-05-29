@@ -6,16 +6,18 @@ Project website is at http://adagios.org
 # Installation
 
 ## Install with Powershell
-```
+```powershell
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
 Invoke-WebRequest -Uri "https://github.com/opinkerfi/adagios-agent-windows/archive/master.zip" -outfile "$env:TEMP\master.zip" -Verbose
+
 Expand-Archive -Path "$env:TEMP\master.zip" -DestinationPath "$env:TEMP" -Force -Verbose
 & "$env:TEMP\adagios-agent-windows-master\Deploy-Application.exe"
 ```
 
 ### Change configuration settings
 
-* Change the file `Files/allowed_hosts.ini`
+* Change the file `SupportFiles/allowed_hosts.ini`
 ```
 [/settings/default]
 allowed hosts = 127.0.0.1,{ip_address_of_your_nagios_server}
