@@ -13,6 +13,8 @@ Invoke-WebRequest -Uri "https://github.com/opinkerfi/adagios-agent-windows/archi
 
 Expand-Archive -Path "$env:TEMP\master.zip" -DestinationPath "$env:TEMP" -Force -Verbose
 & "$env:TEMP\adagios-agent-windows-master\Deploy-Application.exe"
+
+$ENV:Path += ";C:\Program Files\NSclient++"
 ```
 
 ### Change configuration settings
