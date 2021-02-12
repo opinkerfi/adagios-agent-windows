@@ -62,14 +62,14 @@ Try {
 	[string]$appArch = ''
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
-	[string]$appScriptVersion = '1.0.0.1'
+	[string]$appScriptVersion = '1.0.0.2'
 	[string]$appScriptDate = '23/01/2019'
 	[string]$appScriptAuthor = 'Gardar Thorsteinsson<gardart@gmail.com>'
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
 	[string]$installName = 'NSClient++ Deployment'
 	[string]$installTitle = ''
-	[version]$AdagiosAgentVersion = [version]'1.0.0.1'
+	[version]$AdagiosAgentVersion = [version]'1.0.0.2'
 	## Variables: System architecture detection
 	#If([IntPtr]::Size -eq 8)
 	#{
@@ -191,7 +191,7 @@ Try {
 		## <Perform Post-Installation tasks here>
 
 		# nscp settings --path /adagios --key "adagios_agent_version" --show
-		# nscp settings --path /adagios --key "adagios_agent_version" --set "1.0.0.1"
+		# nscp settings --path /adagios --key "adagios_agent_version" --set "1.0.0.2"
 		Stop-ServiceAndDependencies -Name 'nscp'
 		Copy-File -Path "$dirSupportFiles\*.*" -Destination "$envProgramFiles\NSClient++\"
 		Copy-File -Path "$dirSupportFiles\Scripts" -Destination "$envProgramFiles\NSClient++" -Recurse
